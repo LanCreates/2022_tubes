@@ -6,10 +6,9 @@
 
 # EN
 ## About This Repository
-This repository contains the final project of data structure course in my college
---- 
+<p>This repository contains the final project of data structure course in my college</p>
 
 # ID
 ## Tentang Repositori Ini
-Repositori ini berisi tugas besar dari mata kuliah struktur data di kampus saya
+<p>Repositori ini berisi tugas besar dari mata kuliah struktur data di kampus saya</p>
 
