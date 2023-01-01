@@ -1,7 +1,7 @@
 # Duplicate This Repository
 ```
-    git init
-    ...
+    mkdir <your folder name>
+    git clone https://github.com/LanCreates/2022_tubes.git <your folder name>
 ```
 
 # EN
@@ -11,5 +11,5 @@ This repository contains the final project of data structure course in my colleg
 
 # ID
 ## Tentang Repositori Ini
-Repositori ini berisi arsip dari tugas besar dari mata kuliah struktur data di kampus
+Repositori ini berisi tugas besar dari mata kuliah struktur data di kampus saya
 
