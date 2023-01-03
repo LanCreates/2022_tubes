@@ -12,19 +12,38 @@ void showMenu() {
     cout << string(10, '=') << "  MENU UTAMA  " << string(10, '=') << endl;
     cout << 
         "0. Keluar dari aplikasi\n" <<
-        "1. Tambahkan parent baru\n" <<
-        "2. Cetak seluruh parent\n" <<
-        "3. Hapus sebuah parent\n" <<
-        "4. Cari parent tertentu\n" <<
-        "5. Tambahkan child baru\n" <<
-        "6. Hubungkan child ke parent\n" <<
-        "7. Cetak seluruh parent dan child\n" <<
-        "8. Cari sebuah child\n" <<
-        "9. Hapus sebuah child\n" <<
-        "10. Hitung banyak parent\n" <<
+        "1. Tambah user baru\n" <<
+        "2. Tampil user tertentu\n" <<
+        "3. Hapus user tertentu\n" <<
+        "4. Cari user tertentu\n" <<
+        "5. Tambah post dari user tertentu\n" <<
+        "6. Hapus post dari user tertentu\n" <<
+        "7. Tampil semua post dari user tertentu\n" <<
+        "8. Cari post dari user tertentu\n" <<
+        "9. Tambah relasi post ke user tertentu\n" <<
+        "10. Hapus relasi post ke user tertentu\n" <<
+        "11. Tampil semua post dari user dengan post terbanyak\n" <<
+        "12. Cari user yang membuat post tertentu\n" << 
         "Masukkan angka sesuai menu yang tersedia: ";
 }
 
 void askAction(int &action) {
     cin >> action;
+}
+
+void askPostID(string &postID) {
+    cout << "Masukkan ID dari post: ";
+    cin >> postID;
+}
+
+void askUserID(string &userID) {
+    cout << "Masukkan ID dari user: ";
+    cin >> userID;
+}
+
+void postNotFound(string postID) {
+    cout << "Post dengan ID " << postID << "tidak ditemukan" << endl;
+}
+void userNotFound(string userID) {
+    cout << "User dengan ID " << userID << "tidak ditemukan" << endl;
 }
