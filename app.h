@@ -5,7 +5,6 @@
 #include <string>
 #include <cstdlib>
 #include <fstream>
-#include "MLL.h"
 
 using namespace std;
 
@@ -24,6 +23,8 @@ enum action {
     HAPUS_RELASI_POST_KE_USER,
     TAMPIL_USER_POST_TERBANYAK,
     CARI_USER_POST_Y,
+    TAMPIL_SEMUA_POST,
+    TAMPIL_SEMUA_USER,
     N_ACTION
 };
 
@@ -35,5 +36,4 @@ void askPostID(string &postID);
 void askUserID(string &userID);
 void postNotFound(string postID);
 void userNotFound(string userID);
-void mainLoop();
 #endif

@@ -24,6 +24,8 @@ void showMenu() {
         "10. Hapus relasi post ke user tertentu\n" <<
         "11. Tampil semua post dari user dengan post terbanyak\n" <<
         "12. Cari user yang membuat post tertentu\n" << 
+        "[13]. Menampilkan semua post\n" <<
+        "[14]. Menampilkan semua user\n" <<
         "Masukkan angka sesuai menu yang tersedia: ";
 }
 
@@ -42,8 +44,8 @@ void askUserID(string &userID) {
 }
 
 void postNotFound(string postID) {
-    cout << "Post dengan ID " << postID << "tidak ditemukan" << endl;
+    cout << "Post dengan ID " << postID << " tidak ditemukan" << endl;
 }
 void userNotFound(string userID) {
-    cout << "User dengan ID " << userID << "tidak ditemukan" << endl;
+    cout << "User dengan ID " << userID << " tidak ditemukan" << endl;
 }

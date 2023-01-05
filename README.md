@@ -1,7 +1,6 @@
 # Duplicate This Repository
 ```
-    mkdir <your folder name>
-    git clone https://github.com/LanCreates/2022_tubes.git <your folder name>
+    git clone https://github.com/LanCreates/2022_tubes.git
 ```
 
 # EN

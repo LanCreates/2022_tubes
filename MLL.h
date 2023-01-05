@@ -2,8 +2,8 @@
 #define LIST_H
 
 // ========================
-// L1 = post (Single circular) => Parent
-// L2 = user
+// L1 = post (single circular) => Parent
+// L2 = user (single)
 // ========================
 
 #include <iostream>
@@ -42,7 +42,7 @@ struct Child {
     adrChild next;
 };
 
-struct listParent { // Single Circular
+struct listParent {
     adrParent first;
 };
 
@@ -50,37 +50,56 @@ struct listChild {
     adrChild first;
 };
 
-// Fungsionalitas (Wajib)
-void addParentFirst(listParent &P, adrParent p); // Menambah user baru
-void showAllParent(listParent P); // Menampilkan detail dari parent
-adrParent deleteParent(listParent &P, string IDParent); // Menghapus user dengan ID tertentu
-adrParent findParent(listParent P, string IDParent); // Mencari user dengan ID Tertentu
-void addChildFirst(listChild &C, adrChild c); // Menambahkan post
-void connect(listParent &P, listChild C, string IDParent, string IDChild); // Membuat relasi (Menghubungkan parent ke child)
-void showAllParentChild(listParent P, listChild C); // Menampilkan semua parent dan child-nya
-adrChild findChild(listChild C, string IDChild); // Mencari post dengan ID tertentu
-adrParent findParentFromChild(listParent P, adrChild c, string IDChild); // Sama seperti findChild, tapi pada parent tertentu
-adrChild deleteChild(listParent &P, listChild &C, string IDChild); // Menghapus post dari user x
-void countParentChild(listParent P, listChild C, string IDParent); // Menghitung banyaknya child dari parent tertentu
-
-// Tambahan
-void showUserData(adrChild c); // Menampilkan data user X
-void showAllPostFromUser(listParent P, string IDChild); // Menampilkan semua post dari user X
-void hapusRelasi(listParent P, listChild C, string IDParent, string IDChild); // Memutus relasi parent ke child, tapi parent tidak dihapus
-void showMax(listParent P, listChild C); // Menampilkan user dengan post terbanyak dan print semuanya
-void cariUserDariPost(listParent P, listChild C, string IDParent); // Cari nama user dari post tertentu
-
-// Utils (Pembantu)
+// Fungsionalitas dasar
 adrParent createParent(parentInfo pInfo);
 adrChild createChild(childInfo cInfo);
+void createParentList(listParent &P);
+void createChildList(listChild &C);
+void addParentFirst(listParent &P, adrParent p); // Add p at first
+void addParentLast(listParent &P, adrParent p); // Add p at last
+void addParentAfter(listParent &P, adrParent p, adrParent q); // Add p after q
+adrParent deleteParentFirst(listParent &P); // delete parent awal
+adrParent deleteParentLast(listParent &P); // delete parent terakhir
+adrParent deleteParentAfter(listParent &P, adrParent p); // delete parent setelah p
+adrParent findParent(listParent P, string IDParent); // Mencari user dengan ID Tertentu
+adrParent findParentFromChild(listParent P, adrChild c, string IDChild); // Sama seperti findChild, tapi pada parent tertentu
+void addChildFirst(listChild &C, adrChild c); // add c at first
+void addChildLast(listChild &C, adrChild c); // add c at last
+void addChildAfter(listChild &C, adrChild c, adrChild d); // add c after d
+adrChild deleteChildFirst(listParent &P, listChild &C); // delete parent akhir
+adrChild deleteChildLast(listParent &P, listChild &C); // haus child terakhir
+adrChild deleteChildAfter(listParent &P, listChild &C, adrChild c); // hapus child setelah c
+adrChild findChild(listChild C, string IDChild); // Mencari post dengan ID tertentu
 
+// Fungsionalitas lainnya
+void addParent(listParent &P, adrParent p);
+adrParent deleteParent(listParent &P, string IDParent);
+void printParentInfo(adrParent p);
+void addChild(listChild &C, adrChild c);
+adrChild deleteChild(listParent &P, listChild &C, string IDChild);
+void printChildInfo(adrChild c);
+void showAllParent(listParent P); // Menampilkan detail dari parent
+void showAllParentChild(listParent P, listChild C); // Menampilkan semua parent dan child-nya
+void showAllChild(listChild C); // Menampilkan detail dari parent
+
+void showUserData(listParent P, adrChild c); // Menampilkan data user X
+void showAllPostFromUser(listParent P, string IDChild); // Menampilkan semua post dari user X
+void addRelasi(adrParent p, adrChild c); // Membuat relasi (Menghubungkan parent ke child)
+void deleteRelasi(adrParent p); // Memutus relasi parent ke child, tapi parent tidak dihapus
+void cariUserDariPost(listParent P, listChild C, string IDParent); // Cari nama user dari post tertentu
+void showMax(listParent P, listChild C); // Menampilkan user dengan post terbanyak dan print semuanya
+void countParentChild(listParent P, listChild C, string IDParent); // Menghitung banyaknya child dari parent tertentu
+
+// Out of Topic
+void showMethod();
+void askInput(int &input);
 #endif
 
 /* [] -> Me
 void addParentFirst(listParent &P, adrParent p); []
-void showAllParent(listParent P); 
+void showAllParent(listParent P); -> Parent kan circular, kondisinya kurang pas
 adrParent deleteParent(listParent &P, string IDParent); [] 
-adrParent findParent(listParent P, string IDParent); 
+adrParent findParent(listParent P, string IDParent); -> Parent kan circular, kondisinya kurang pas
 void addChildFirst(listChild &C, adrChild c); [] 
 void connect(listParent &P, listChild C, string IDParent, string IDChild); [] 
 void showAllParentChild(listParent P, listChild C);
