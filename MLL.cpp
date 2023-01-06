@@ -75,7 +75,7 @@ adrParent deleteParentFirst(listParent &P) {
 
 adrParent deleteParentLast(listParent &P) {
     adrParent deleted;
-    if(next(first(P)) == first(P)) {
+    if(next(first(P)) == first(P)) { // 1 elemen
         deleted = first(P);
         first(P) = NULL;
     } else {
@@ -91,10 +91,8 @@ adrParent deleteParentLast(listParent &P) {
 }
 
 adrParent deleteParentAfter(listParent &P, adrParent p) {
-    adrParent deleted;
-    if(next(p) == first(P)) { // Tak bisa menghapus setelah elemen akhir (meski circular)
-        deleted = NULL;
-    } else {
+    adrParent deleted = NULL;
+    if(next(p) != first(P)) { // Tak bisa menghapus setelah elemen akhir (meski circular)
         deleted = next(p);
         next(p) = next(deleted);
         next(deleted) = NULL;
@@ -122,23 +120,23 @@ adrParent findParent(listParent P, string IDParent) {
     return NULL;
 }
 
-adrParent findParentFromChild(listParent P, adrChild c, string IDChild) {
+adrParent findParentOfChild(listParent P, adrChild c, string IDParent) {
     if(first(P) != NULL) {
         adrParent p = first(P);
-        while(next(p) != first(P)) {
-            if(child(p) == c && info(child(p)).userID == IDChild) {
+        bool loopedOnce = false;
+        while(!loopedOnce) {
+            if(info(p).postID == IDParent && child(p) == c) {
                 return p;
             }
             p = next(p);
+            loopedOnce = (p == first(P));
         }
     }
     return NULL;
 }
 
 void addChildFirst(listChild &C, adrChild c) {
-    if(first(C) != NULL) {
-        next(c) = first(C);
-    }
+    next(c) = first(C);
     first(C) = c;
 }
 
@@ -155,9 +153,7 @@ void addChildLast(listChild &C, adrChild c) {
 }
 
 void addChildAfter(listChild &C, adrChild c, adrChild d) {
-    if(next(d) == first(C)) { // Jika elemen terakhir
-        next(c) = first(C);
-    } else {
+    if(next(d) != NULL) { // Jika bukan elemen terakhir
         next(c) = next(d);
     }
     next(d) = c;
@@ -165,16 +161,46 @@ void addChildAfter(listChild &C, adrChild c, adrChild d) {
 
 adrChild deleteChildFirst(listParent &P, listChild &C) {
     adrChild deleted = first(C);
+
+    adrParent parentDeleted = first(P);
+    while(next(parentDeleted) != first(P) && child(parentDeleted) != deleted) {
+        parentDeleted = next(parentDeleted);
+    }
+    if(parentDeleted != NULL) { deleteRelasi(parentDeleted); }
+
+    first(C) = next(first(C));
+    next(deleted) = NULL;
     return deleted;
 }
 
 adrChild deleteChildLast(listParent &P, listChild &C) {
-    adrChild deleted;
+    adrChild prevDeleted, deleted = first(C);
+    while(next(deleted) != NULL) {
+        prevDeleted = deleted;
+        deleted = next(deleted);
+    }
+
+    adrParent parentDeleted = first(P);
+    while(next(parentDeleted) != first(P) && child(parentDeleted) != deleted) {
+        parentDeleted = next(parentDeleted);
+    }
+    if(parentDeleted != NULL) { deleteRelasi(parentDeleted); }
+
+    next(prevDeleted) = NULL;
+    next(deleted) = NULL;
     return deleted;
 }
 
-adrChild deleteChildAfter(listParent &P, listChild &C, adrChild c) {
-    adrChild deleted;
+adrChild deleteChildAfter(listParent &P, adrChild &c) {
+    adrChild deleted = next(c);
+    if(deleted != NULL) { // Bukan elemen akhir
+        next(c) = next(next(c));
+        adrParent parentDeleted = first(P);
+        while(next(parentDeleted) != first(P) && child(parentDeleted) != deleted) {
+            parentDeleted = next(parentDeleted);
+        }
+        if(parentDeleted != NULL) { deleteRelasi(parentDeleted); }
+    }
     return deleted;
 }
 
@@ -252,18 +278,19 @@ adrParent deleteParent(listParent &P, string IDParent) {
 }
 
 void printParentInfo(adrParent p) {
-    cout << "postID\t" << "tanggal\t"<< endl;
-    cout << info(p).postID << "\t"
+    cout << "=============== "
+        << "\npostID\t" << "tanggal\t\n"
+        << info(p).postID << "\t"
         << info(p).tanggal << "\t"
-        << "\n===== Isi ===== \n" << info(p).isi
+        << "\n=b " << info(p).like << " orang menyukai ini"
         << "\n[+] Dibuat oleh @";
-        if(child(p) != NULL) {
-            cout << info(child(p)).username;
-        } else {
-            cout << "anonymous";
-        }
-        cout << endl << endl;
 
+    if(child(p) != NULL) { cout << info(child(p)).username;
+    } else { cout << "anonymous";
+    }
+
+    cout << "\n===== Isi ===== \n" << info(p).isi
+        << endl << endl;
 }
 
 void addChild(listChild &C, adrChild c) {
@@ -308,14 +335,17 @@ adrChild deleteChild(listParent &P, listChild &C, string IDChild) {
                 d = deleteChildFirst(P, C);
                 break;
             case 1:
+                cout << "Masukkan id child sebelum child yang ingin dihapus: ";
+                cin >> IDChild;
                 c = findChild(C, IDChild);
                 if(c != NULL) {
-                    d = deleteChildAfter(P, C, c);
+                    d = deleteChildAfter(P, c);
                 } else {
                     cout << "Child tersebut tak ditemukan! "
                         << "Pengahapusan dibatalkan" 
                         << endl;
                 }
+                break;
             case 2:
                 d = deleteChildLast(P, C);
                 break;
@@ -323,6 +353,7 @@ adrChild deleteChild(listParent &P, listChild &C, string IDChild) {
     } else {
         cout << "List kosong" << endl;
     }
+
     return d;
 }
 
@@ -399,13 +430,10 @@ void showAllPostFromUser(listParent P, string IDChild) { // Nama sebelumnya: Sho
         adrParent p = first(P);
         int post_no = 1;
         while(next(p) != first(P)) {
-            if(info(child(p)).userID == IDChild) {
+            if(child(p) != NULL && info(child(p)).userID == IDChild) {
                 printf("[%d] ", post_no);
-                cout << string(25, '-');
-                cout << "postID: " << info(p).postID
-                    << "\nDipost pada: " << info(p).tanggal
-                    << "\nIsi\n" << info(p).isi
-                    << endl;
+                cout << string(25, '-') << endl;
+                printParentInfo(p);
                 post_no++;
             }
             p = next(p);
@@ -455,11 +483,13 @@ void showMax(listParent P, listChild C) {
         while(c != NULL) {
             int n_post = 0;
             adrParent p = first(P);
-            while(next(p) != first(P)) {
+            bool loopedOnce = false;
+            while(!loopedOnce) {
                 if(child(p) == c) {
                     n_post++;
                 }
                 p = next(p);
+                loopedOnce = (p == first(P));
             }
             if(max_post < n_post) {
                 max_post = n_post;
@@ -468,8 +498,8 @@ void showMax(listParent P, listChild C) {
             c = next(c);
         }
         
-        cout << "Profil user dengan post terbanyak:\n";
-        printChildInfo(c);
+        printf("Profil ini membuat post terbanyak (%d post)\n", max_post);
+        printChildInfo(max_user);
     } else {
         cout << "Tidak ada data pengguna";
     }
@@ -493,7 +523,7 @@ void countParentChild(listParent P, listChild C, string IDParent) {
 
 // Out of Topic
 void showMethod() {
-    cout << "Pilihan: [0] first\n[1] after x\n[2]last\n"
+    cout << "Pilihan hapus/tambah data:\n[0] first\t[1] after x\t[2]last\n"
         << "Masukkan pilihan: ";
 }
 

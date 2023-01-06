@@ -62,13 +62,13 @@ adrParent deleteParentFirst(listParent &P); // delete parent awal
 adrParent deleteParentLast(listParent &P); // delete parent terakhir
 adrParent deleteParentAfter(listParent &P, adrParent p); // delete parent setelah p
 adrParent findParent(listParent P, string IDParent); // Mencari user dengan ID Tertentu
-adrParent findParentFromChild(listParent P, adrChild c, string IDChild); // Sama seperti findChild, tapi pada parent tertentu
+adrParent findParentOfChild(listParent P, adrChild c, string IDParent); // Sama seperti findChild, tapi pada parent tertentu
 void addChildFirst(listChild &C, adrChild c); // add c at first
 void addChildLast(listChild &C, adrChild c); // add c at last
 void addChildAfter(listChild &C, adrChild c, adrChild d); // add c after d
 adrChild deleteChildFirst(listParent &P, listChild &C); // delete parent akhir
-adrChild deleteChildLast(listParent &P, listChild &C); // haus child terakhir
-adrChild deleteChildAfter(listParent &P, listChild &C, adrChild c); // hapus child setelah c
+adrChild deleteChildLast(listParent &P, listChild &C); // hapus child terakhir
+adrChild deleteChildAfter(listParent &P, adrChild &c); // hapus child setelah c
 adrChild findChild(listChild C, string IDChild); // Mencari post dengan ID tertentu
 
 // Fungsionalitas lainnya
