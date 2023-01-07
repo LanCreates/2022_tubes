@@ -47,7 +47,6 @@ void addParentLast(listParent &P, adrParent p) {
         while(next(q) != first(P)) {
             q = next(q);
         }
-    
         next(q) = p;
     }
     next(p) = first(P);
@@ -67,7 +66,12 @@ adrParent deleteParentFirst(listParent &P) {
     if(next(first(P)) == first(P)) {
         first(P) = NULL;
     } else {
+        adrParent q = first(P);
+        while(next(q) != first(P)) {
+            q = next(q);
+        }
         first(P) = next(deleted);
+        next(q) = next(deleted);
     }
     next(deleted) = NULL;
     return deleted;
@@ -230,14 +234,12 @@ void addParent(listParent &P, adrParent p) {
             addParentFirst(P, p);
             break;
         case 1:
-            cout << "Masukkan ID parent sebelum parent baru: ";
-            cin >> parentID;
+            cout << "Masukkan ID parent sebelum parent baru: "; cin >> parentID;
             temp = findParent(P, parentID);
             if(temp != NULL) {
                 addParentAfter(P, p, temp);
             } else {
-                cout << "Parent tersebut tak ditemukan! Silakan ulangi input" 
-                     << endl;
+                cout << "Parent tersebut tak ditemukan! Silakan ulangi input" << endl;
                 delete p;
             }
             break;
@@ -245,36 +247,6 @@ void addParent(listParent &P, adrParent p) {
             addParentLast(P, p);
             break;
     }
-}
-
-adrParent deleteParent(listParent &P, string IDParent) {
-    int option;
-    showMethod();
-    askInput(option);
-    
-    adrParent p, q = NULL;
-    if(first(P) != NULL) {
-        switch(option % 3) {
-            case 0:
-                q = deleteParentFirst(P);
-                break;
-            case 1:
-                p = findParent(P, IDParent);
-                if(p != NULL) {
-                    q = deleteParentAfter(P, p);
-                } else {
-                    cout << "Parent tersebut tak ditemukan! "
-                        << "Pengahapusan dibatalkan" 
-                        << endl;
-                }
-            case 2:
-                q = deleteParentLast(P);
-                break;
-        }
-    } else {
-        cout << "List kosong" << endl;
-    }
-    return q;
 }
 
 void printParentInfo(adrParent p) {
@@ -289,8 +261,7 @@ void printParentInfo(adrParent p) {
     } else { cout << "anonymous";
     }
 
-    cout << "\n===== Isi ===== \n" << info(p).isi
-        << endl << endl;
+    cout << "\n===== Isi ===== \n" << info(p).isi << endl << endl;
 }
 
 void addChild(listChild &C, adrChild c) {
@@ -324,36 +295,34 @@ void addChild(listChild &C, adrChild c) {
 }
 
 adrChild deleteChild(listParent &P, listChild &C, string IDChild) {
-    int option;
-    showMethod();
-    askInput(option);
-    
-    adrChild c, d = NULL;
+    adrChild d;
     if(first(C) != NULL) {
-        switch(option % 3) {
-            case 0:
+        cout << "Masukkan id child yang ingin dihapus: ";
+        cin >> IDChild;
+        adrChild c = findChild(C, IDChild);
+        if(c != NULL) {
+            if(first(C) == c) {
                 d = deleteChildFirst(P, C);
-                break;
-            case 1:
-                cout << "Masukkan id child sebelum child yang ingin dihapus: ";
-                cin >> IDChild;
-                c = findChild(C, IDChild);
-                if(c != NULL) {
-                    d = deleteChildAfter(P, c);
-                } else {
-                    cout << "Child tersebut tak ditemukan! "
-                        << "Pengahapusan dibatalkan" 
-                        << endl;
+            } else {
+                c = first(C);
+                while(next(c) != NULL && info(next(c)).userID != IDChild) {
+                    c = next(c);
                 }
-                break;
-            case 2:
-                d = deleteChildLast(P, C);
-                break;
-        }
-    } else {
-        cout << "List kosong" << endl;
-    }
 
+                if(c != NULL) {
+                    if(next(c) == NULL) {
+                        d = deleteChildLast(P, C);
+                    } else {
+                        d = deleteChildAfter(P, c);
+                    }
+                }
+            }
+        } else {
+            cout << "Child tersebut tak ditemukan! "
+                << "Pengahapusan dibatalkan" 
+                << endl;
+        }
+    }
     return d;
 }
 
@@ -369,11 +338,11 @@ void showAllParent(listParent P) {
     if(p == NULL) {
         cout << "List kosong!" << endl;
     } else {
-        while(next(p) != first(P)) {
-            printParentInfo(p);
-            p = next(p);
-        }
         printParentInfo(p);
+        while(next(p) != first(P)) {
+            p = next(p);
+            printParentInfo(p);
+        }
     }
 }
 
@@ -412,7 +381,7 @@ void showAllParentChild(listParent P, listChild C) {
 void showUserData(listParent P, adrChild c) {
     if(c != NULL && first(P) != NULL) {
         printChildInfo(c);
-        cout << "Daftar Post yang dibuat\n =====";
+        cout << "Daftar Post yang dibuat =====\n";
 
         adrParent p = first(P);
         while(next(p) != first(P)) {
@@ -517,8 +486,7 @@ void countParentChild(listParent P, listChild C, string IDParent) {
     }
     
     cout << "IDParent : " << IDParent 
-        << "\nBanyak Child : " << n_child 
-        << endl;
+        << "\nBanyak Child : " << n_child << endl;
 }
 
 // Out of Topic

@@ -73,7 +73,6 @@ adrChild findChild(listChild C, string IDChild); // Mencari post dengan ID terte
 
 // Fungsionalitas lainnya
 void addParent(listParent &P, adrParent p);
-adrParent deleteParent(listParent &P, string IDParent);
 void printParentInfo(adrParent p);
 void addChild(listChild &C, adrChild c);
 adrChild deleteChild(listParent &P, listChild &C, string IDChild);

@@ -41,7 +41,7 @@ int main() {
         // Do action
         string userID, postID;
         adrChild tempUser;
-        adrParent tempPost, tempPost2;
+        adrParent tempPost;
         clearScreen();
         switch(userChoice % N_ACTION) {
             case TAMBAH_USER_BARU: cout << "MENU: Menambahkan user baru" << endl;
@@ -89,28 +89,29 @@ int main() {
                 }
                 break;
             case HAPUS_POST_USER_X: cout << "MENU: Menghapus post Y dari user X" << endl;
-                askUserID(userID);
-                tempUser = findChild(L2, userID);
-                if(tempUser != NULL) {
-                    askPostID(postID);
-                    tempPost = findParent(L1, postID);
-                    
-                    if(tempPost != NULL) {
+                if(first(L1) != NULL) {
+                    askUserID(userID); tempUser = findChild(L2, userID);
+                    askPostID(postID); tempPost = findParent(L1, postID);
+                    if(tempUser != NULL && tempPost != NULL) {
                         if(first(L1) == tempPost) { 
-                            deleteParentFirst(L1);
+                            tempPost = deleteParentFirst(L1);
                         } else {
-                            tempPost2 = first(L1); // prev dari tempPost
-                            while(next(tempPost2) != first(L1) && next(tempPost2) != tempPost) {
-                                tempPost2 = next(tempPost2);
+                            tempPost = first(L1); // prev dari post dengan ID yang dimasukkan
+                            while(next(tempPost) != first(L1) && info(next(tempPost)).postID != postID) {
+                                tempPost = next(tempPost);
                             }
-                            tempPost = deleteParentAfter(L1, tempPost2);
+
+                            if(next(next(tempPost)) == first(L1)) {
+                                tempPost = deleteParentLast(L1);
+                            } else {
+                                tempPost = deleteParentAfter(L1, tempPost);
+                            }
                         }
-                        deleteRelasi(tempPost);
+                            deleteRelasi(tempPost);
                     } else {
-                        postNotFound(postID);
+                        if(tempUser == NULL) { userNotFound(userID);}
+                        if(tempPost == NULL) { postNotFound(postID);}
                     }
-                } else {
-                    userNotFound(userID);
                 }
                 break;
             case TAMPIL_POST_USER_X: cout << "MENU: Menampilkan seluruh post yang dibuat user X" << endl;
@@ -129,7 +130,7 @@ int main() {
                     } else {
                         cout << "post ini tidak dibuat oleh user dengan ID: " << userID << endl;
                     }
-                } else if(child(tempPost) == NULL) {
+                } else if(tempPost != NULL && child(tempPost) == NULL) {
                     cout << "Post ini dibuat oleh user anonymous!" << endl;
                 } else {
                     if(tempUser == NULL) { userNotFound(userID); }
