@@ -62,7 +62,7 @@ adrParent deleteParentFirst(listParent &P); // delete parent awal
 adrParent deleteParentLast(listParent &P); // delete parent terakhir
 adrParent deleteParentAfter(listParent &P, adrParent p); // delete parent setelah p
 adrParent findParent(listParent P, string IDParent); // Mencari user dengan ID Tertentu
-adrParent findParentOfChild(listParent P, adrChild c, string IDParent); // Sama seperti findChild, tapi pada parent tertentu
+adrParent findParentOfChild(listParent P, adrChild c, string IDParent); // Sama seperti findParent, tapi pada parent tertentu
 void addChildFirst(listChild &C, adrChild c); // add c at first
 void addChildLast(listChild &C, adrChild c); // add c at last
 void addChildAfter(listChild &C, adrChild c, adrChild d); // add c after d
@@ -94,21 +94,21 @@ void showMethod();
 void askInput(int &input);
 #endif
 
-/* [] -> Me
-void addParentFirst(listParent &P, adrParent p); []
-void showAllParent(listParent P); -> Parent kan circular, kondisinya kurang pas
-adrParent deleteParent(listParent &P, string IDParent); [] 
-adrParent findParent(listParent P, string IDParent); -> Parent kan circular, kondisinya kurang pas
-void addChildFirst(listChild &C, adrChild c); [] 
-void connect(listParent &P, listChild C, string IDParent, string IDChild); [] 
-void showAllParentChild(listParent P, listChild C);
-adrChild findChild(listChild C, string IDChild); 
-adrChild findChildFromParent(listChild C, adrParent p, string IDChild); []
-adrChild deleteChild(listParent &P, listChild &C, string IDChild); 
-void countParentChild(listParent P, listChild C, string IDParent); []
-void showUserData(adrParent p);
-void showAllPostFromUser(listChild C, adrParent p); []
-void hapusRelasi(listParent P, listChild C, string IDParent, string IDChild); []
-void showMax(listParent P, listChild C);
-void cariUserDariPost(listParent P, listChild C);
+/*
+void addParentFirst(listParent &P, adrParent p);                                        [bagian dari menu TAMBAH_POST_USER_X]
+void showAllParent(listParent P);                                                       bagian dari TAMPIL_SEMUA_POST
+adrParent deleteParent(listParent &P, string IDParent);                                 [bagian dari HAPUS_POST_USER_X] 
+adrParent findParent(listParent P, string IDParent);                                    bagian dari CARI_POST_USER_X
+void addChildFirst(listChild &C, adrChild c);                                           [bagian dari menu TAMBAH_USER_BARU] 
+void addRelasi(listParent &P, listChild C, string IDParent, string IDChild);            [bagian dari BUAT_RELASI_POST_KE_USER] 
+void showAllParentChild(listParent P, listChild C);                                     x
+adrChild findChild(listChild C, string IDChild);                                        bagian dari menu CARI_USER_X
+adrChild findChildFromParent(listChild C, adrParent p, string IDChild);                 [x]
+adrChild deleteChild(listParent &P, listChild &C, string IDChild);                      bagian dari HAPUS_USER_X
+void countParentChild(listParent P, listChild C, string IDParent);                      [x]
+void showUserData(adrParent p);                                                         bagian dari TAMPIL_USER_X
+void showAllPostFromUser(listChild C, adrParent p);                                     [bagian dari TAMPIL_POST_USER_X]
+void deleteRelasi(listParent P, listChild C, string IDParent, string IDChild);          [bagian dari menu HAPUS_RELASI_POST_KE_USER]
+void showMax(listParent P, listChild C);                                                bagian dari menu TAMPIL_USER_POST_TERBANYAK
+void cariUserDariPost(listParent P, listChild C);					[bagian dari CARI_USER_POST_Y]
 */
