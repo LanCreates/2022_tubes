@@ -47,9 +47,13 @@ int main() {
             case TAMBAH_USER_BARU: cout << "MENU: Menambahkan user baru" << endl;
                 cout << "Masukkan detail user" << endl;
                 cout << "ID: "; cin >> CInfo.userID;
-                cout << "username: "; cin >> CInfo.username;
-                cout << "asal: "; cin >> CInfo.asal;
-                addChild(L2, createChild(CInfo));
+                if(findChild(L2, CInfo.userID) == NULL) {
+                    cout << "username: "; cin >> CInfo.username;
+                    cout << "asal: "; cin >> CInfo.asal;
+                    addChild(L2, createChild(CInfo));
+                } else {
+                    cout << "ID user ini sudah terdaftar" << endl;
+                }
                 break;
             case TAMPIL_USER_X: cout << "MENU: Menampilkan data user X" << endl;
                 askUserID(userID);
@@ -74,16 +78,20 @@ int main() {
             case TAMBAH_POST_USER_X: cout << "MENU: Menambah post baru oleh user X" << endl;
                 askUserID(userID);
                 tempUser = findChild(L2, userID);
-
+                
                 if(tempUser != NULL) {
                     cout << "Masukkan detail post" << endl;
                     cout << "ID: "; cin >> PInfo.postID;
-                    cout << "tanggal post: "; getline(cin >> ws, PInfo.tanggal);
-                    cout << "banyak like: "; cin >> PInfo.like;
-                    cout << "isi: "; getline(cin >> ws, PInfo.isi);
-                    tempPost = createParent(PInfo);
-                    addRelasi(tempPost, tempUser);
-                    addParent(L1, tempPost);
+                    if(findParent(L1, PInfo.postID) == NULL) {
+                        cout << "tanggal post: "; getline(cin >> ws, PInfo.tanggal);
+                        cout << "banyak like: "; cin >> PInfo.like;
+                        cout << "isi: "; getline(cin >> ws, PInfo.isi);
+                        tempPost = createParent(PInfo);
+                        addRelasi(tempPost, tempUser);
+                        addParent(L1, tempPost);
+                    } else {
+                        cout << "Post dengan ID ini sudah ada dalam list!" << endl;
+                    }
                 } else {
                     userNotFound(userID);
                 }
