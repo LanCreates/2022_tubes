@@ -398,7 +398,8 @@ void showAllPostFromUser(listParent P, string IDChild) { // Nama sebelumnya: Sho
     if(first(P) != NULL) {
         adrParent p = first(P);
         int post_no = 1;
-        while(next(p) != first(P)) {
+        bool looped_once = false;
+        while(!looped_once) {
             if(child(p) != NULL && info(child(p)).userID == IDChild) {
                 printf("[%d] ", post_no);
                 cout << string(25, '-') << endl;
@@ -406,6 +407,7 @@ void showAllPostFromUser(listParent P, string IDChild) { // Nama sebelumnya: Sho
                 post_no++;
             }
             p = next(p);
+            looped_once = p == first(P);
         }
     }
 }
@@ -469,6 +471,7 @@ void showMax(listParent P, listChild C) {
         
         printf("Profil ini membuat post terbanyak (%d post)\n", max_post);
         printChildInfo(max_user);
+        showAllPostFromUser(P, info(max_user).userID);
     } else {
         cout << "Tidak ada data pengguna";
     }
