@@ -12,6 +12,7 @@ git clone https://github.com/LanCreates/2022_tubes.git
 
 # Run this Code
 <p>On terminal, do the following command. Make sure the current directory is the directory which has each items on this repository.</p>
+
 ```
 g++ *.cpp
 ./a.exe
