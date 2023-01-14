@@ -1,0 +1,38 @@
+AddParentFirst
+1. Cek first dari listParent.
+2. Kalau NULL, karena circular, maka next dari p adalah dia sendiri
+3. Bila tidak, maka next dari p adalah elemen pertama saat itu dan elemen terakhir (yang dicari dengan iterasi) kita set kembali agar menuju ke first yang baru
+4. Perbarui first dari listParent
+
+hapusPostUserX
+1. Masukkan post yang ingin dihapus
+2. Masukkan user yang membuat post tersebut
+3. Cek apakah keduanya ada dalam list, proses dilanjutkan bila setidaknya parentnya ada
+4. Cari lokasi parent, jika di pertama maka deleteFirst, jika di akhir maka deleteLast, dan jika tidak keduanya maka deleteAfter
+5. Untuk parent yang dihapus, jangan lupa dihapus relasinya karena sudah dihapus dari list
+
+TAMBAH_USER_BARU
+1. Masukkan detail dari user baru
+2. Lalu tentukan ingin dimasukkan di mana
+3. User baru akan dimasukkan ke list sesuai lokasi yang kita inginkan (sudah di-provide)
+
+BUAT_RELASI_POST_KE_USER
+1. Minta detail post dan user yang ingin dihubungkan
+2. Pastikan keduanya ada dengan fungsi find
+3. Bila ada, maka hubungkan dengan mengisi atribut child dengan adrChild dari user yang ingin dihubungkan
+
+TAMPIL_POST_USER_X
+1. Minta detail user yang ingin ditampilkan postnya
+2. Iterasi setiap parent pada listParent
+3. Untuk setiap parent, tentukan apakah dia menunjuk ke child dengan detail user yang ingin ditampilkan. Jika cocok maka tampilkan detail dari post tersebut
+
+HAPUS_RELASI_USER_X
+1. Pertama detail parent yang ingin dihapus relasinya dengan childnya
+2. Cari parent tersebut, jika ada maka lanjutkan
+3. Penghapusan dilakukan dengan mengganti adrChild yang ditunjuk parent ini menjadd NULL
+
+CARI_POST_USER_Y
+1. Karena ingin mencari pembuat post yang dibuat oleh user tertentu, ertama masukkan detail post dan usernya
+2. Kalau keduanya ada, maka cari post tersebut berdasarkan detail child yang ditentukan
+3. Jika post yang dibuat user tertentu ditemukan, maka tampilkan post itu
+

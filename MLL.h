@@ -110,5 +110,5 @@ void showUserData(adrParent p);                                                 
 void showAllPostFromUser(listChild C, adrParent p);                                     [bagian dari TAMPIL_POST_USER_X]
 void deleteRelasi(listParent P, listChild C, string IDParent, string IDChild);          [bagian dari menu HAPUS_RELASI_POST_KE_USER]
 void showMax(listParent P, listChild C);                                                bagian dari menu TAMPIL_USER_POST_TERBANYAK
-void cariUserDariPost(listParent P, listChild C);					[bagian dari CARI_USER_POST_Y]
+void cariUserDariPost(listParent P, listChild C);                                       [bagian dari CARI_USER_POST_Y]
 */
